@@ -1,0 +1,7 @@
+S3method(generate,GPCAvarest2)
+S3method(generate,default)
+S3method(generate,matrix)
+S3method(generate,varest)
+S3method(generate,varest2)
+export(generate)
+import(RMAWGEN)
