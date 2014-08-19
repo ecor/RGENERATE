@@ -33,7 +33,7 @@ NULL
 
 
 
-generate.default <- function (x,FUN=rnorm,n=100,K=3,names=NULL,cov=NULL,...)  {
+generate.default <- function (x,FUN=rnorm,n=100,K=3,names=NULL,cov=NULL,gap.filling=NULL,...)  {
 	
 	if (!is.null(names)) K <- length(names)
 	if (!is.null(cov)) K <- ncol(cov)
@@ -45,7 +45,7 @@ generate.default <- function (x,FUN=rnorm,n=100,K=3,names=NULL,cov=NULL,...)  {
 	if (!is.null(names)) {
 		if (length(names)==K) names(out) <- names
 	}
-# TRASH ....	
+# TRASH .... str	
 #	if (is.null(B)) B <- t(chol(summary(var)$covres))
 	
 #	if (is.null(xprev)) xprev <- rnorm(ncol(B))
@@ -56,7 +56,13 @@ generate.default <- function (x,FUN=rnorm,n=100,K=3,names=NULL,cov=NULL,...)  {
 		out[,] <- ((as.matrix(out)) %*% t(B))
 	}
 	
-
+	if (!is.null(gap.filling)) {
+		
+		
+		out[!is.na(gap.filling)] <- gap.filling[!is.na(gap.filling)]
+		
+	}
+	
 	return(out)
 	
 }
@@ -80,6 +86,9 @@ NULL
 #' @param exogen null object or amatrix or data frame with exogeneous variables (predictors) id requested by \code{x}. Default is \code{NULL}  
 #' @param xprev null object or initial condition of the multivariate random process to be generated. Default is \code{NULL}. 
 #' @param gap.filling data frame with time series with gabs (\code{NA} values) to be filled. Default is \code{NULL} and not considered, otherwise the method returns this data frame with \code{NA}  row replaced with generated (e.g auto-regressed) values. 
+#' @param GPCA.row.gap.filling.option logical value. Default is \code{TRUE}. In case of \code{\link{GPCAvarest2-class}} objects, If \code{gap.filling} contains both \code{NA} and finite values in the same row, 
+#' this row will contains all \code{NA} values after GPCA. In this case all row values are generated through auto-regression. If \code{GPCA.row.gap.filling.option} all insterted non-NA \code{gap.filling} values   are repleced before returning the function value. 
+#' Otherwise, in the rows with \code{NA}s all values are re-generated. The option \code{TRUE} is not safe in case the gaps are vary long becouse the genereted values is used for subsequent auto-regrossion.
 #' @param ... further arguments for \code{FUN}
 #' 
 #' @return a matrix or a data frame object
@@ -270,12 +279,15 @@ generate.varest <- function (x,FUN=rnorm,n=100,names=NULL,noise=NULL,exogen=NULL
 			xout <- as.vector(mcvar %*% as.matrix(xprevx)) + as.vector(noise[i,])
 			
 			if (gap.filling.action==TRUE) {
-				xout_val <- as.vector(gap.filling[i,])
+				
+				xout_val <- as.vector(unlist(gap.filling[i,]))
+				
 				xout[!is.na(xout_val)] <- xout_val[!is.na(xout_val)]
 			}
 		} else { 
-		
+			
 			xout <- as.vector(unlist(gap.filling[i,]))
+			
 	##		xout_var <- as.vector(mcvar %*% as.matrix(xprevx)) + as.vector(noise[i,])
 	##		xout[is.na(xout)] <- xout_var[is.na(xout)]
 			
@@ -327,7 +339,7 @@ NULL
 #' @aliases generate 
 #' @export
 
-generate.GPCAvarest2 <- function (x,FUN=rnorm,n=100,names=NULL,noise=NULL,exogen=NULL,xprev=NULL,extremes=TRUE,type=3,gap.filling=NULL,...) { 
+generate.GPCAvarest2 <- function (x,FUN=rnorm,n=100,names=NULL,noise=NULL,exogen=NULL,xprev=NULL,extremes=TRUE,type=3,gap.filling=NULL,GPCA.row.gap.filling.option=TRUE,...) { 
 	
 	# vedere codice RMAWGEN 
 	
@@ -352,6 +364,7 @@ generate.GPCAvarest2 <- function (x,FUN=rnorm,n=100,names=NULL,noise=NULL,exogen
 		
 		GPCA_data <- x@GPCA_data
 		GPCA.gap.filling <- NULL
+		GPCA.row.gap.filling.option==FALSE
 	} else { 
 		GPCA_data <- GPCA(gap.filling, n = length(x@GPCA_data)-1, extremes = extremes)
 		GPCA.gap.filling <- GPCA_data$final_results
@@ -366,6 +379,14 @@ generate.GPCAvarest2 <- function (x,FUN=rnorm,n=100,names=NULL,noise=NULL,exogen
 
 	
 	names(out) <- names
+	
+	if (GPCA.row.gap.filling.option==TRUE) {
+		
+		count <- !is.na(gap.filling)
+		out[count] <- gap.filling[count]
+		
+		
+	}
 	
 	return(out)
 	

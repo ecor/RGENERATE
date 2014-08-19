@@ -1,0 +1,50 @@
+\name{gapFilling}
+\alias{gapFilling}
+\alias{gapFilling.data.frame}
+\alias{gapFilling.default}
+\title{gapFilling}
+\usage{
+gapFilling(x = NULL, ...)
+
+\method{gapFilling}{default}(x, objectForGeneration = NULL, ...)
+
+\method{gapFilling}{data.frame}(x, objectForGeneration = NULL,
+  max.filling = 2, nofill.code = -9999, ...)
+}
+\arguments{
+  \item{x}{object with gaps to fill}
+
+  \item{objectForGeneration}{object used for
+  \code{\link{generate}} method}
+
+  \item{max.filling}{integer values: gap are filled if the
+  previous \code{max.filling} values are not \code{NA} or
+  \code{nofill.code}}
+
+  \item{nofill.code}{Alternative value to \code{NA} which
+  indicates the gaps which are not filled}
+
+  \item{...}{further argument for \code{\link{generate}}
+  method}
+}
+\description{
+gapFilling
+
+It fills in a gab of a data frame by using
+\code{\link{generate}} method
+}
+\examples{
+set.seed(122)
+NSTEP <- 1000
+x <- rnorm(NSTEP)
+y <- x+rnorm(NSTEP)
+z <- c(rnorm(1),y[-1]+rnorm(NSTEP-1))
+df <- data.frame(x=x,y=y,z=z)
+var <- VAR(df,type="none")
+
+dfobs <- df
+dfobs[20:30,2] <- NA
+n <- nrow(df)
+gp <- gapFilling(x=dfobs,objectForGeneration=var,max.filling=2)
+}
+

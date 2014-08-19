@@ -10,7 +10,7 @@
 generate(x = NULL, ...)
 
 \method{generate}{default}(x, FUN = rnorm, n = 100, K = 3, names = NULL,
-  cov = NULL, ...)
+  cov = NULL, gap.filling = NULL, ...)
 
 \method{generate}{varest}(x, FUN = rnorm, n = 100, names = NULL,
   noise = NULL, exogen = NULL, xprev = NULL, gap.filling = NULL, ...)
@@ -20,7 +20,7 @@ generate(x = NULL, ...)
 
 \method{generate}{GPCAvarest2}(x, FUN = rnorm, n = 100, names = NULL,
   noise = NULL, exogen = NULL, xprev = NULL, extremes = TRUE,
-  type = 3, gap.filling = NULL, ...)
+  type = 3, gap.filling = NULL, GPCA.row.gap.filling.option = TRUE, ...)
 
 \method{generate}{matrix}(x, FUN = rnorm, n = 100, noise = NULL,
   xprev = NULL, names = NULL, gap.filling = NULL, ...)
@@ -71,6 +71,21 @@ generate(x = NULL, ...)
   and not considered, otherwise the method returns this
   data frame with \code{NA} row replaced with generated
   (e.g auto-regressed) values.}
+
+  \item{GPCA.row.gap.filling.option}{logical value. Default
+  is \code{TRUE}. In case of
+  \code{\link{GPCAvarest2-class}} objects, If
+  \code{gap.filling} contains both \code{NA} and finite
+  values in the same row, this row will contains all
+  \code{NA} values after GPCA. In this case all row values
+  are generated through auto-regression. If
+  \code{GPCA.row.gap.filling.option} all insterted non-NA
+  \code{gap.filling} values are repleced before returning
+  the function value. Otherwise, in the rows with
+  \code{NA}s all values are re-generated. The option
+  \code{TRUE} is not safe in case the gaps are vary long
+  becouse the genereted values is used for subsequent
+  auto-regrossion.}
 
   \item{...}{further arguments for \code{FUN}}
 
