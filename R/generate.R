@@ -81,7 +81,6 @@ NULL
 #' @param names null object or string vectors or names of the variables to be generated simultaneously. Default is \code{NULL}.
 #' @param K number of the variables to be generated simultaneously, i.e. the K parameters of a VAR. It is automatically detected by \code{x}, \code{names} or \code{cov}, if one of these is not \code{NULL}. 
 #' @param cov null object or covariance matrix of the random variables to be generated simultaneously. Default is \code{NULL}, not used in case this information can be detected from \code{x}.
-#' 
 #' @param noise null object or a generic external noise for \code{x} model residuals, e.g. standard white noise, for random generation with the model \code{x}. Default is \code{NULL}. If \code{NULL} the noise is automatically calculated. 
 #' @param exogen null object or amatrix or data frame with exogeneous variables (predictors) id requested by \code{x}. Default is \code{NULL}  
 #' @param xprev null object or initial condition of the multivariate random process to be generated. Default is \code{NULL}. 
@@ -89,6 +88,7 @@ NULL
 #' @param GPCA.row.gap.filling.option logical value. Default is \code{TRUE}. In case of \code{\link{GPCAvarest2-class}} objects, If \code{gap.filling} contains both \code{NA} and finite values in the same row, 
 #' this row will contains all \code{NA} values after GPCA. In this case all row values are generated through auto-regression. If \code{GPCA.row.gap.filling.option} all insterted non-NA \code{gap.filling} values   are repleced before returning the function value. 
 #' Otherwise, in the rows with \code{NA}s all values are re-generated. The option \code{TRUE} is not safe in case the gaps are vary long becouse the genereted values is used for subsequent auto-regrossion.
+#' @param type character string used in some method implementations. See \code{\link{inv_GPCA}}. In the matrix implementation, default is \code{"autoregression"}, i.e. the matrix is used as a vector auto-regression coefficient, if it is \code{"covariance"} the method genereted a sample with covariance matrix given by \code{x}.
 #' @param ... further arguments for \code{FUN}
 #' 
 #' @return a matrix or a data frame object
@@ -165,8 +165,45 @@ NULL
 #' qqplot(dfobs$y,dffill$y)
 #' abline(0,1)
 #'  
+#' ### generation with 'generetion.matrix' 
+#' ### and matrix 'x' is a covariance matrix 
+#' 
+#' covariance <- array(0.5,c(3,3))
+#' 
+#' diag(covariance) <- 1
+#' 
+#' set.seed(127)
+#' ngns <- 1000
+#' gg1 <- generate(FUN=rnorm,n=ngns,cov=covariance)
+#' set.seed(127)
+#' gg2 <- generate(covariance,type="covariance",n=ngns)
 #' 
 #' 
+#' ## generate with a list of covariance matrix 
+#' ndim <- 5
+#' dim <- c(ndim,ndim)
+#' CS1 <- array(0.3,dim)
+#' CS2 <- array(0.5,dim)
+#' CS3 <- array(0.7,dim)
+#' CS4 <- array(0.1,dim)
+#' 
+#' diag(CS1) <- 1
+#' diag(CS2) <- 1
+#' diag(CS3) <- 1
+#' diag(CS4) <- 1
+#' 
+#' list <- list(CS1=CS1,CS2=CS2,CS3=CS3,CS4=CS4)
+#' 
+#' series <- rep(1:4,times=4,each=100)
+#' series <- sprintf("CS%d",series)
+#' names_A <- sprintf("A%d",1:ndim)
+#' ggs <- generate(list,factor.series=series,FUN=rnorm,type="covariance",names=names_A)
+#' 
+#' ggs_CS1 <- ggs[series=="CS1",]
+#' cov(ggs_CS1)
+#' 
+#' ggs_CS3 <- ggs[series=="CS3",] 
+#' cov(ggs_CS3)
 
 generate.varest <- function (x,FUN=rnorm,n=100,names=NULL,noise=NULL,exogen=NULL,xprev=NULL,gap.filling=NULL,...)  {
 
@@ -187,10 +224,12 @@ generate.varest <- function (x,FUN=rnorm,n=100,names=NULL,noise=NULL,exogen=NULL
 	   print("Check VAR Model, this method might not work successfully!!")
 	}	
 	nexogen <- ncol(x$datamat)-K*(p+1)
+	
 	## CHECK exogen var!!! 
 	if ((is.null(exogen)) & (nexogen!=0)) {
 		print("Error in generate.varest method: exogen variables (predictors) are needed for VAR multirealization") 
 		print("Check VAR and exogen variables!!!")
+		print(nexogen)
 		stop()
 	} else if (!is.null(exogen)) if (nexogen!=ncol(exogen)) {
 			print("Error in generate.varest method:  corrected exogen variables (predictors) are needed for VAR multirealization") 
@@ -331,7 +370,7 @@ NULL
 
 #' 
 #' 
-#' @param extremes,type  see \code{\link{inv_GPCA}}
+#' @param extremes  see \code{\link{inv_GPCA}}
 #' 
 #' @rdname generate
 #' @method generate GPCAvarest2
@@ -408,14 +447,24 @@ NULL
 #####################################################################
 #####################################################################
 
-generate.matrix <- function (x,FUN=rnorm,n=100,noise=NULL,xprev=NULL,names=NULL,gap.filling=NULL,...) { 
+generate.matrix <- function (x,FUN=rnorm,n=100,noise=NULL,xprev=NULL,names=NULL,gap.filling=NULL,type=c("autoregression","covariance"),...) { 
 	
 	# vedere codice RMAWGEN 
 	
 	
 	
 	
+	
 	if (!is.null(noise))  n <- nrow(noise)
+	type <- type[1]
+	
+	if (type=="covariance") {
+		
+		K <- nrow(x)
+		out <- generate(FUN=FUN,n=n,cov=x,names=names,...)
+		return(out)
+	}
+	
 	
 	if (is.null(noise)) {
 		K <- nrow(x)
@@ -433,7 +482,7 @@ generate.matrix <- function (x,FUN=rnorm,n=100,noise=NULL,xprev=NULL,names=NULL,
 	if (!is.null(gap.filling)) {
 		
 		if (nrow(noise)!=nrow(gap.filling)) {
-			warning("Warning in generate.varest method: gap.filling is not equal to noise realizations (i.e. the number of realizations!!), then it is not considered!!!") 
+			warning("Warning in generate.matrix method: gap.filling is not equal to noise realizations (i.e. the number of realizations!!), then it is not considered!!!") 
 			gap.filling <- NULL
 			
 		}
@@ -488,8 +537,49 @@ generate.matrix <- function (x,FUN=rnorm,n=100,noise=NULL,xprev=NULL,names=NULL,
 	
 }	
 
+NULL
+#' 
+#' 
+#' @param  factor.series factor series used by 'factor.series' 
+#' 
+#' 
+#' @rdname generate
+#' @method generate list
+#' @S3method generate list
+#' @aliases generate 
+#' @export
 
 
+generate.list <- function(x,factor.series=names(x),...) {
+	
+	out <- NULL
+	it <- as.character(factor.series[1])
+	
+	rows <- which(as.character(factor.series)==it)
+	temp <- generate(x[[it]],n=length(rows),...)
+	
+	out <- array(NA,c(length(factor.series),ncol(temp)))
+	out <- as.data.frame(out)
+	names(out) <- names(temp)
+	
+	out[rows,] <- temp
+    ##for (it )
+	###factor.series.a <- factor.series[-rows]
+	for (id in names(x)[names(x)!=it]) {
+		
+	
+		rows <- which(as.character(factor.series)==id)
+		if (length(rows)>0) out[rows,] <- generate(x[[id]],n=length(rows),...)
+		
+		
+	}
+	
+
+	return(out)
+	
+	
+	
+}
 # DA VEDERE QUI!!!!!!	
 #	
 #	K <-var@VAR$K

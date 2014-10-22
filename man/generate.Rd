@@ -2,6 +2,7 @@
 \alias{generate}
 \alias{generate.GPCAvarest2}
 \alias{generate.default}
+\alias{generate.list}
 \alias{generate.matrix}
 \alias{generate.varest}
 \alias{generate.varest2}
@@ -23,7 +24,10 @@ generate(x = NULL, ...)
   type = 3, gap.filling = NULL, GPCA.row.gap.filling.option = TRUE, ...)
 
 \method{generate}{matrix}(x, FUN = rnorm, n = 100, noise = NULL,
-  xprev = NULL, names = NULL, gap.filling = NULL, ...)
+  xprev = NULL, names = NULL, gap.filling = NULL,
+  type = c("autoregression", "covariance"), ...)
+
+\method{generate}{list}(x, factor.series = names(x), ...)
 }
 \arguments{
   \item{x}{null object or the model used for random
@@ -87,9 +91,20 @@ generate(x = NULL, ...)
   becouse the genereted values is used for subsequent
   auto-regrossion.}
 
+  \item{type}{character string used in some method
+  implementations. See \code{\link{inv_GPCA}}. In the
+  matrix implementation, default is
+  \code{"autoregression"}, i.e. the matrix is used as a
+  vector auto-regression coefficient, if it is
+  \code{"covariance"} the method genereted a sample with
+  covariance matrix given by \code{x}.}
+
   \item{...}{further arguments for \code{FUN}}
 
-  \item{extremes,type}{see \code{\link{inv_GPCA}}}
+  \item{extremes}{see \code{\link{inv_GPCA}}}
+
+  \item{factor.series}{factor series used by
+  'factor.series'}
 }
 \value{
 a matrix or a data frame object
@@ -155,6 +170,46 @@ dffill2 <- generate(gpcavar,n=n,exogen=exogen,gap.filling=dfobs2,names=names(dfo
 
 qqplot(dfobs$y,dffill$y)
 abline(0,1)
+
+### generation with 'generetion.matrix'
+### and matrix 'x' is a covariance matrix
+
+covariance <- array(0.5,c(3,3))
+
+diag(covariance) <- 1
+
+set.seed(127)
+ngns <- 1000
+gg1 <- generate(FUN=rnorm,n=ngns,cov=covariance)
+set.seed(127)
+gg2 <- generate(covariance,type="covariance",n=ngns)
+
+
+## generate with a list of covariance matrix
+ndim <- 5
+dim <- c(ndim,ndim)
+CS1 <- array(0.3,dim)
+CS2 <- array(0.5,dim)
+CS3 <- array(0.7,dim)
+CS4 <- array(0.1,dim)
+
+diag(CS1) <- 1
+diag(CS2) <- 1
+diag(CS3) <- 1
+diag(CS4) <- 1
+
+list <- list(CS1=CS1,CS2=CS2,CS3=CS3,CS4=CS4)
+
+series <- rep(1:4,times=4,each=100)
+series <- sprintf("CS\%d",series)
+names_A <- sprintf("A\%d",1:ndim)
+ggs <- generate(list,factor.series=series,FUN=rnorm,type="covariance",names=names_A)
+
+ggs_CS1 <- ggs[series=="CS1",]
+cov(ggs_CS1)
+
+ggs_CS3 <- ggs[series=="CS3",]
+cov(ggs_CS3)
 }
 \seealso{
 \code{\link{getVARmodel}}
