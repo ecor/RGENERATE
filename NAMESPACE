@@ -1,6 +1,7 @@
 S3method(gapFilling,data.frame)
 S3method(gapFilling,default)
 S3method(generate,GPCAvarest2)
+S3method(generate,MonthlyList)
 S3method(generate,default)
 S3method(generate,list)
 S3method(generate,matrix)

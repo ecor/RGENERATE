@@ -550,7 +550,7 @@ NULL
 #' @export
 
 
-generate.list <- function(x,factor.series=names(x),...) {
+generate.list <- function(x,factor.series=names(x),n=NA,...) {
 	
 	out <- NULL
 	it <- as.character(factor.series[1])
@@ -580,6 +580,32 @@ generate.list <- function(x,factor.series=names(x),...) {
 	
 	
 }
+
+NULL
+#' 
+#' 
+#' @param  origin start date for generation. See \code{\link{adddate}}
+#' 
+#' 
+#' @rdname generate
+#' @method generate MonthlyList
+#' @S3method generate MonthlyList
+#' @aliases generate 
+#' @export
+
+generate.MonthlyList <- function(x,origin,n,...) {
+	
+	monthly.factor  <- adddate(data=as.data.frame(1:n),origin=origin)$month
+	
+	class(x) <- "list"
+	names(x) <- sort(unique(monthly.factor))
+	out <- generate(x,factor.series=factor(monthly.factor),n=NA,...)
+	
+	
+}
+
+
+
 # DA VEDERE QUI!!!!!!	
 #	
 #	K <-var@VAR$K

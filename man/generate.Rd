@@ -1,6 +1,7 @@
 \name{generate}
 \alias{generate}
 \alias{generate.GPCAvarest2}
+\alias{generate.MonthlyList}
 \alias{generate.default}
 \alias{generate.list}
 \alias{generate.matrix}
@@ -27,7 +28,9 @@ generate(x = NULL, ...)
   xprev = NULL, names = NULL, gap.filling = NULL,
   type = c("autoregression", "covariance"), ...)
 
-\method{generate}{list}(x, factor.series = names(x), ...)
+\method{generate}{list}(x, factor.series = names(x), n = NA, ...)
+
+\method{generate}{MonthlyList}(x, origin, n, ...)
 }
 \arguments{
   \item{x}{null object or the model used for random
@@ -105,6 +108,9 @@ generate(x = NULL, ...)
 
   \item{factor.series}{factor series used by
   'factor.series'}
+
+  \item{origin}{start date for generation. See
+  \code{\link{adddate}}}
 }
 \value{
 a matrix or a data frame object
