@@ -220,20 +220,20 @@ generate.varest <- function (x,FUN=rnorm,n=100,names=NULL,noise=NULL,exogen=NULL
 	p <- x$p
 	
 	if (x$type!="none") {
-	   print("Warning in generate.varest: VAR model type is different from 'none' ")
-	   print("Check VAR Model, this method might not work successfully!!")
+	   message("Warning in generate.varest: VAR model type is different from 'none' ")
+	   message("Check VAR Model, this method might not work successfully!!")
 	}	
 	nexogen <- ncol(x$datamat)-K*(p+1)
 	
 	## CHECK exogen var!!! 
 	if ((is.null(exogen)) & (nexogen!=0)) {
-		print("Error in generate.varest method: exogen variables (predictors) are needed for VAR multirealization") 
-		print("Check VAR and exogen variables!!!")
+		message("Error in generate.varest method: exogen variables (predictors) are needed for VAR multirealization") 
+		message("Check VAR and exogen variables!!!")
 		print(nexogen)
 		stop()
 	} else if (!is.null(exogen)) if (nexogen!=ncol(exogen)) {
-			print("Error in generate.varest method:  corrected exogen variables (predictors) are needed for VAR multirealization") 
-			print("Check VAR and exogen variables!!!")
+			message("Error in generate.varest method:  corrected exogen variables (predictors) are needed for VAR multirealization") 
+			message("Check VAR and exogen variables!!!")
 			stop()
 	}
 
@@ -605,76 +605,3 @@ generate.MonthlyList <- function(x,origin,n,...) {
 }
 
 
-
-# DA VEDERE QUI!!!!!!	
-#	
-#	K <-var@VAR$K
-#	p <- var@VAR$p
-#	
-#	nexogen <- ncol(var@VAR$datamat)-K*(p+1)
-#	if (is.null(noise)) {
-#		noise <- array(rnorm(K*nrealization),c(nrealization,K))
-#		
-#		
-#		if (class(var)=="GPCAvarest2") {
-#			
-#			noise1 <- as.data.frame(t(B %*% t(as.matrix(noise)))) ## DA CORREGGERE QUI!!!
-#			
-#			noise <- inv_GPCA(x=noise1,GPCA_param=var@GPCA_residuals,type=type,extremes=extremes)
-#			B <- diag(1,ncol(B))
-#		} 
-#	}	else {
-#		
-#		B <- diag(1,ncol(B))
-#	}
-#	
-#	
-#	if ((is.null(exogen)) & (nexogen!=0)) {
-#		print("Error exogen variables (predictors) are needed to new VAR multirealization") 
-#		print("Check VAR and exogen variables!!!")
-#	} else if (!is.null(exogen)) if (nexogen!=ncol(exogen)) {
-#			print("Error corrected exogen variables (predictors) are needed to new VAR multirealization") 
-#			print("Check VAR and exogen variables!!!")
-#		}#if (nexogen!=ncol(exogen)) names
-#	
-#	out <- array(NA,c(nrealization,K))
-#	
-#	
-#	x <-xprev[1:K]
-#	if (p>1) xprev <- xprev[(K+1):(K*p)]
-#	
-#	
-#	for(i in 1:nrow(out)) {
-#		
-#		
-#		if (p>1) xprev <- c(x,xprev[1:(K*(p-1))]) else xprev <- x
-#		
-#		if (is.null(exogen)) {
-#			exogen_data <- NULL
-#		} else {
-#			exogen_data <- as.vector(t(exogen[i,]))
-#		}
-#		
-#		x <- NewVAReventRealization(var=var@VAR,xprev=xprev,exogen=exogen_data,noise=as.vector(t(noise[i,])),B=B)
-#		out[i,] <- x
-#		
-#		
-#	}
-#	
-#	if (class(var)=="GPCAvarest2") {
-#		
-#		out <- inv_GPCA(x=out,GPCA_param=var@GPCA_data,type=type,extremes=extremes)
-#		
-#	} 		
-#	
-#	return(as.matrix(out))
-#	
-#	
-#	
-	
-	
-	
-#	out <- NULL
-#	return(out)
-	
-#}
