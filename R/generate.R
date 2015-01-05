@@ -253,10 +253,10 @@ generate.varest <- function (x,FUN=rnorm,n=100,names=NULL,noise=NULL,exogen=NULL
 
 	if (is.null(noise)) { 
 		noise <- generate(FUN=FUN,n=n,K=K,names=names,cov=summary(x)$covres,...)
-	##	print(noise)
+	
 	
 	}
-	# MAKE THE GENERATION!!!! 
+	
 	
 	if (!is.null(exogen)) {
 		if (nrow(noise)!=nrow(exogen)) { 
