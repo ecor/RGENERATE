@@ -72,8 +72,13 @@ if (toCran) {
 	system(paste("rm -rf",cran_pkg_unuseful,sep=" "))
 	cran_pkg_unuseful <- paste(cran_pkg_dir,"Read-and-delete-me",sep="/")
 	system(paste("rm -rf",cran_pkg_unuseful,sep=" "))
-	cran_pkg_unuseful <- paste(cran_pkg_dir,"roxygenize.R",sep="/")
+	cran_pkg_unuseful <- paste(cran_pkg_dir,"roxygenize*",sep="/")
 	system(paste("rm -rf",cran_pkg_unuseful,sep=" "))
+	cran_pkg_unuseful <- paste(cran_pkg_dir,".DS*",sep="/")
+	system(paste("rm -rf",cran_pkg_unuseful,sep=" "))
+	cran_pkg_unuseful <- paste(cran_pkg_dir,"inst/.R*",sep="/")
+	system(paste("rm -rf",cran_pkg_unuseful,sep=" "))
+	
 }
 
 
