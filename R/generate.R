@@ -27,7 +27,7 @@ NULL
 #' 
 #' @rdname generate
 #' @method generate default
-#' @S3method generate default
+#### @S3method generate default
 #' @aliases generate 
 #' @export
 
@@ -99,7 +99,7 @@ NULL
 #' @name generate
 #' @rdname generate
 #' @method generate varest
-#' @S3method generate varest
+#### @S3method generate varest
 #' @aliases generate generate.varest 
 #' 
 #' @export
@@ -352,7 +352,7 @@ NULL
 #' 
 #' @rdname generate
 #' @method generate varest2
-#' @S3method generate varest2
+#### @S3method generate varest2
 #' @aliases generate 
 #' @export
 
@@ -374,7 +374,7 @@ NULL
 #' 
 #' @rdname generate
 #' @method generate GPCAvarest2
-#' @S3method generate GPCAvarest2
+#### @S3method generate GPCAvarest2
 #' @aliases generate 
 #' @export
 
@@ -438,7 +438,7 @@ NULL
 
 #' @rdname generate
 #' @method generate matrix
-#' @S3method generate matrix
+#### @S3method generate matrix
 #' @aliases generate 
 #' @export
 
@@ -545,7 +545,7 @@ NULL
 #' 
 #' @rdname generate
 #' @method generate list
-#' @S3method generate list
+#### @S3method generate list
 #' @aliases generate 
 #' @export
 
@@ -589,7 +589,7 @@ NULL
 #' 
 #' @rdname generate
 #' @method generate MonthlyList
-#' @S3method generate MonthlyList
+#### @S3method generate MonthlyList
 #' @aliases generate 
 #' @export
 

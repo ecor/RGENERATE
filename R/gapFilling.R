@@ -56,7 +56,7 @@ NULL
 #' 
 #' @rdname gapFilling
 #' @method gapFilling default
-#' @S3method gapFilling default
+#### @S3method gapFilling default
 #' @aliases gapFilling 
 #' @export
 
@@ -77,7 +77,7 @@ gapFilling.default <- function (x,objectForGeneration=NULL,...)  {
 NULL
 #' @rdname gapFilling
 #' @method gapFilling data.frame
-#' @S3method gapFilling data.frame
+#### @S3method gapFilling data.frame
 #' @aliases gapFilling 
 #' @export
 
