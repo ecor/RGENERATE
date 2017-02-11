@@ -105,6 +105,8 @@ NULL
 #' @export
 #' 
 #' @import RMAWGEN 
+#' @importFrom stats coef residuals rnorm
+#' 
 #' @examples 
 #' 
 #' 
