@@ -39,7 +39,7 @@ generate(x = NULL, ...)
 
 \item{...}{further arguments for \code{FUN}}
 
-\item{FUN}{random function of the probability distribution used for noise random generation. Default is \code{\link{rnorm}}. See \url{http://cran.r-project.org/web/views/Distributions.html}}
+\item{FUN}{random function of the probability distribution used for noise random generation. Default is \code{\link{rnorm}}. See \url{    https://CRAN.R-project.org/view=Distributions}}
 
 \item{n}{number of generations requested}
 

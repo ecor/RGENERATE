@@ -4,10 +4,10 @@ License: GPL (>= 2)
 Title: Tools to Generate Vector Time Series
 Type: Package
 Author: Emanuele Cordano
-Description: A method 'generate' is implemented in this package for the random
+Description: A method 'generate()' is implemented in this package for the random
     generation of vector time series according to models obtained by 'RMAWGEN',
     'vars' or other packages.  This package was created to generalize the
-    algorithms of the RMAWGEN package for the analysis and generation of any
+    algorithms of the 'RMAWGEN' package for the analysis and generation of any
     environmental vector time series.
 Repository: CRAN
 URL: https://github.com/ecor/RGENERATE
