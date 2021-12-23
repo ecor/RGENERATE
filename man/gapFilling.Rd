@@ -2,16 +2,21 @@
 % Please edit documentation in R/gapFilling.R
 \name{gapFilling}
 \alias{gapFilling}
-\alias{gapFilling.data.frame}
 \alias{gapFilling.default}
+\alias{gapFilling.data.frame}
 \title{gapFilling}
 \usage{
 gapFilling(x = NULL, ...)
 
 \method{gapFilling}{default}(x, objectForGeneration = NULL, ...)
 
-\method{gapFilling}{data.frame}(x, objectForGeneration = NULL,
-  max.filling = 2, nofill.code = -9999, ...)
+\method{gapFilling}{data.frame}(
+  x,
+  objectForGeneration = NULL,
+  max.filling = 2,
+  nofill.code = -9999,
+  ...
+)
 }
 \arguments{
 \item{x}{object with gaps to fill}
@@ -25,8 +30,6 @@ gapFilling(x = NULL, ...)
 \item{nofill.code}{Alternative value to \code{NA} which indicates the gaps which are not filled}
 }
 \description{
-gapFilling
-
 It fills in a gab of a data frame by using  \code{\link{generate}} method
 }
 \examples{
@@ -49,4 +52,3 @@ gp <- gapFilling(x=dfobs,objectForGeneration=var,max.filling=2)
 
 
 }
-

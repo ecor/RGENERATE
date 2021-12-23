@@ -2,33 +2,78 @@
 % Please edit documentation in R/generate.R
 \name{generate}
 \alias{generate}
-\alias{generate.GPCAvarest2}
-\alias{generate.MonthlyList}
 \alias{generate.default}
-\alias{generate.list}
-\alias{generate.matrix}
 \alias{generate.varest}
 \alias{generate.varest2}
+\alias{generate.GPCAvarest2}
+\alias{generate.matrix}
+\alias{generate.list}
+\alias{generate.MonthlyList}
 \title{generate}
 \usage{
 generate(x = NULL, ...)
 
-\method{generate}{default}(x, FUN = rnorm, n = 100, K = 3, names = NULL,
-  cov = NULL, gap.filling = NULL, ...)
+\method{generate}{default}(
+  x,
+  FUN = rnorm,
+  n = 100,
+  K = 3,
+  names = NULL,
+  cov = NULL,
+  gap.filling = NULL,
+  ...
+)
 
-\method{generate}{varest}(x, FUN = rnorm, n = 100, names = NULL,
-  noise = NULL, exogen = NULL, xprev = NULL, gap.filling = NULL, ...)
+\method{generate}{varest}(
+  x,
+  FUN = rnorm,
+  n = 100,
+  names = NULL,
+  noise = NULL,
+  exogen = NULL,
+  xprev = NULL,
+  gap.filling = NULL,
+  ...
+)
 
-\method{generate}{varest2}(x, FUN = rnorm, n = 100, names = NULL,
-  noise = NULL, exogen = NULL, xprev = NULL, gap.filling = NULL, ...)
+\method{generate}{varest2}(
+  x,
+  FUN = rnorm,
+  n = 100,
+  names = NULL,
+  noise = NULL,
+  exogen = NULL,
+  xprev = NULL,
+  gap.filling = NULL,
+  ...
+)
 
-\method{generate}{GPCAvarest2}(x, FUN = rnorm, n = 100, names = NULL,
-  noise = NULL, exogen = NULL, xprev = NULL, extremes = TRUE,
-  type = 3, gap.filling = NULL, GPCA.row.gap.filling.option = TRUE, ...)
+\method{generate}{GPCAvarest2}(
+  x,
+  FUN = rnorm,
+  n = 100,
+  names = NULL,
+  noise = NULL,
+  exogen = NULL,
+  xprev = NULL,
+  extremes = TRUE,
+  type = 3,
+  gap.filling = NULL,
+  GPCA.row.gap.filling.option = TRUE,
+  ...
+)
 
-\method{generate}{matrix}(x, FUN = rnorm, n = 100, noise = NULL,
-  xprev = NULL, names = NULL, gap.filling = NULL,
-  type = c("autoregression", "covariance"), ...)
+\method{generate}{matrix}(
+  x,
+  FUN = rnorm,
+  n = 100,
+  noise = NULL,
+  xprev = NULL,
+  names = NULL,
+  gap.filling = NULL,
+  type = c("autoregression", "covariance"),
+  ...
+)
 
 \method{generate}{list}(x, factor.series = names(x), n = NA, ...)
 
@@ -73,8 +118,6 @@ Otherwise, in the rows with \code{NA}s all values are re-generated. The option \
 a matrix or a data frame object
 }
 \description{
-generate
-
 It generates a multivarite random series according to the model \code{x}
 }
 \examples{
@@ -180,4 +223,3 @@ cov(ggs_CS3)
 \seealso{
 \code{\link{getVARmodel}}
 }
-
