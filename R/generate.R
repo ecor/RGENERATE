@@ -14,7 +14,7 @@ NULL
 
 generate <- function (x=NULL,...)  {
 	
-	
+  
 	return(UseMethod("generate",x))
 	
 }
@@ -106,7 +106,8 @@ NULL
 #' 
 #' @import RMAWGEN 
 #' @importFrom stats coef residuals rnorm
-#' 
+#' @importFrom magrittr %>% 
+#'  
 #' @examples 
 #' 
 #' 
@@ -514,7 +515,8 @@ generate.matrix <- function (x,FUN=rnorm,n=100,noise=NULL,xprev=NULL,names=NULL,
 	       
 			
 			if (i %in% count.gab.filling) {
-				xnext <- as.vector(x %*% as.matrix(xprev)) + as.vector(noise[i,])	
+			  
+				xnext <- as.vector(x %*% as.matrix(xprev)) + as.vector(as.matrix(noise[i,]))	
 				if (gap.filling.action==TRUE) {
 					xnext_val <- as.vector(gap.filling[i,])
 					xnext[!is.na(xnext_val)] <- xnext_val[!is.na(xnext_val)]

@@ -1,8 +1,12 @@
 ---
 title: "Stochastic Generation of Daily Temperature Anomalies using RGENERATE and RMAWGEN"
 author: "Emanuele Cordano"
-date: "4/11/2020"
-output: html_document
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Stochastic Generation of Daily Temperature Anomalies using RGENERATE and RMAWGEN}
+  %\VignetteEngine{knitr::rmarkdown}
+  \VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
@@ -11,14 +15,14 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Rationale
 
-The rationale of this vignette is the presentation of a stochastic generation of daily mininum and maximum tempareture in two or more sites meke use of **RMAWGEN** and **RGENERATE** packages. The illustrated procedure refers to *trentino* dataset (**RMAWGEN** package), ad after loading the necessary packages and calling the  *trentino* dataset (**RMAWGEN** package), is organizede as follows: 
+The rationale of this vignette is the presentation of a stochastic generation of daily minimum and maximum temperature in two or more sites makes use of **RMAWGEN** and **RGENERATE** packages. The illustrated procedure refers to *trentino* dataset (**RMAWGEN** package), ad after loading the necessary packages and calling the  *trentino* dataset (**RMAWGEN** package), is organized as follows: 
 
 - Selection of a generally 30-year long period within the dataset;
 - Preparation of input data for the model setup, e.g. detection of temperature anomalies;
-- Calibration of the stochastic generations, i.e. creation of a *GPCAvarest2* object instance for the model whose parameterts like order of autocorrelations and number of GPCA iterations are inserted as function arguments;
+- Calibration of the stochastic generations, i.e. creation of a *GPCAvarest2* object instance for the model whose parameters like order of autocorrelation and number of GPCA iterations are inserted as function arguments;
 - Usage of the model to generate a new time series of temperature anomalies. 
 
-This tutorial aims at generating a time series of temperature anomalies stating from a time series of observations. The observations were cleaned from interpolations of the averages of each month of the year reperesenting tha actual climate conditions. The generated time series mantains the same statistical properties of the one of the observed anomalies. The anomalies can be added to different scanarios of climate conditions. 
+This tutorial aims at generating a time series of temperature anomalies stating from a time series of observations. The observations were cleaned from interpolations of the averages of each month of the year representing tha actual climate conditions. The generated time series maintains the same statistical properties of the one of the observed anomalies. The anomalies can be added to different scenarios of climate conditions. 
 <!-- This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>. -->
 
 <!-- When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this: -->
