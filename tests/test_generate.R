@@ -136,7 +136,7 @@ set.seed(seed)
 gg2 <- generate(covariance,type="covariance",n=ngns)
 
 if (write_test_outcomes)  saveRDS(gg1,file="/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/gg1.rds")
-gg1o <- readRDS(system.file("inst/outcomes/gg1.rds",package="RGENERATE"))
+gg1o <- readRDS(system.file("outcomes/gg1.rds",package="RGENERATE"))
 
 test_that(desc="Testing generate.matrix (autoregression) (1)",code=expect_equal(gg1o,gg1, tolerance = .002, scale = 1))
 test_that(desc="Testing generate.matrix (autoregression) (2)",code=expect_equal(gg2,gg1, tolerance = .002, scale = 1))
