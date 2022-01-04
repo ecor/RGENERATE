@@ -12,7 +12,7 @@
 
 <meta name="author" content="Emanuele Cordano" />
 
-<meta name="date" content="2021-12-23" />
+<meta name="date" content="2022-01-03" />
 
 <title>Stochastic Generation of Daily Temperature Anomalies using RGENERATE and RMAWGEN</title>
 
@@ -141,20 +141,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <h1 class="title toc-ignore">Stochastic Generation of Daily Temperature Anomalies using RGENERATE and RMAWGEN</h1>
 <h4 class="author">Emanuele Cordano</h4>
-<h4 class="date">2021-12-23</h4>
+<h4 class="date">2022-01-03</h4>
 
 
 
 <div id="rationale" class="section level2">
 <h2>Rationale</h2>
-<p>The rationale of this vignette is the presentation of a stochastic generation of daily mininum and maximum tempareture in two or more sites meke use of <strong>RMAWGEN</strong> and <strong>RGENERATE</strong> packages. The illustrated procedure refers to <em>trentino</em> dataset (<strong>RMAWGEN</strong> package), ad after loading the necessary packages and calling the <em>trentino</em> dataset (<strong>RMAWGEN</strong> package), is organizede as follows:</p>
+<p>The rationale of this vignette is the presentation of a stochastic generation of daily minimum and maximum temperature in two or more sites makes use of <strong>RMAWGEN</strong> and <strong>RGENERATE</strong> packages. The illustrated procedure refers to <em>trentino</em> dataset (<strong>RMAWGEN</strong> package), ad after loading the necessary packages and calling the <em>trentino</em> dataset (<strong>RMAWGEN</strong> package), is organized as follows:</p>
 <ul>
 <li>Selection of a generally 30-year long period within the dataset;</li>
 <li>Preparation of input data for the model setup, e.g. detection of temperature anomalies;</li>
-<li>Calibration of the stochastic generations, i.e. creation of a <em>GPCAvarest2</em> object instance for the model whose parameterts like order of autocorrelations and number of GPCA iterations are inserted as function arguments;</li>
+<li>Calibration of the stochastic generations, i.e. creation of a <em>GPCAvarest2</em> object instance for the model whose parameters like order of autocorrelation and number of GPCA iterations are inserted as function arguments;</li>
 <li>Usage of the model to generate a new time series of temperature anomalies.</li>
 </ul>
-<p>This tutorial aims at generating a time series of temperature anomalies stating from a time series of observations. The observations were cleaned from interpolations of the averages of each month of the year reperesenting tha actual climate conditions. The generated time series mantains the same statistical properties of the one of the observed anomalies. The anomalies can be added to different scanarios of climate conditions. <!-- This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>. --></p>
+<p>This tutorial aims at generating a time series of temperature anomalies stating from a time series of observations. The observations were cleaned from interpolations of the averages of each month of the year representing the actual climate conditions. The generated time series maintains the same statistical properties of the one of the observed anomalies. The anomalies can be added to different scenarios of climate conditions. <!-- This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>. --></p>
 <!-- When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this: -->
 </div>
 <div id="necessary-package" class="section level2">
@@ -11313,7 +11313,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  Two-sample Kolmogorov-Smirnov test
 ## 
 ## data:  param$data_original[, i] and gen1[, i]
-## D = 0.014184, p-value = 0.2361
+## D = 0.028489, p-value = 0.000363
 ## alternative hypothesis: two-sided</code></pre>
 <pre><code>## Warning in ks.test(param$data_original[, i], gen1[, i]): p-value will be
 ## approximate in the presence of ties</code></pre>
@@ -11321,7 +11321,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  Two-sample Kolmogorov-Smirnov test
 ## 
 ## data:  param$data_original[, i] and gen1[, i]
-## D = 0.015626, p-value = 0.1498
+## D = 0.029138, p-value = 0.0002441
 ## alternative hypothesis: two-sided</code></pre>
 <pre><code>## Warning in ks.test(param$data_original[, i], gen1[, i]): p-value will be
 ## approximate in the presence of ties</code></pre>
@@ -11329,7 +11329,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  Two-sample Kolmogorov-Smirnov test
 ## 
 ## data:  param$data_original[, i] and gen1[, i]
-## D = 0.022328, p-value = 0.01007
+## D = 0.0050991, p-value = 0.9991
 ## alternative hypothesis: two-sided</code></pre>
 <pre><code>## Warning in ks.test(param$data_original[, i], gen1[, i]): p-value will be
 ## approximate in the presence of ties</code></pre>
@@ -11337,7 +11337,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  Two-sample Kolmogorov-Smirnov test
 ## 
 ## data:  param$data_original[, i] and gen1[, i]
-## D = 0.01752, p-value = 0.07694
+## D = 0.006456, p-value = 0.9798
 ## alternative hypothesis: two-sided</code></pre>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">##getVARmodel &lt;-</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  function (data,suffix=c(&quot;_Tx&quot;,&quot;_Tn&quot;),sep=&quot;&quot;,p=1,type=&quot;none&quot;,season=NULL,exogen=NULL,lag.max=NULL,ic=&quot;AIC&quot;,activateVARselect=FALSE,na.rm=TRUE,</span></span>

@@ -22,7 +22,7 @@ The rationale of this vignette is the presentation of a stochastic generation of
 - Calibration of the stochastic generations, i.e. creation of a *GPCAvarest2* object instance for the model whose parameters like order of autocorrelation and number of GPCA iterations are inserted as function arguments;
 - Usage of the model to generate a new time series of temperature anomalies. 
 
-This tutorial aims at generating a time series of temperature anomalies stating from a time series of observations. The observations were cleaned from interpolations of the averages of each month of the year representing tha actual climate conditions. The generated time series maintains the same statistical properties of the one of the observed anomalies. The anomalies can be added to different scenarios of climate conditions. 
+This tutorial aims at generating a time series of temperature anomalies stating from a time series of observations. The observations were cleaned from interpolations of the averages of each month of the year representing the actual climate conditions. The generated time series maintains the same statistical properties of the one of the observed anomalies. The anomalies can be added to different scenarios of climate conditions. 
 <!-- This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>. -->
 
 <!-- When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this: -->

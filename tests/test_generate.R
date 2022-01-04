@@ -21,8 +21,8 @@ z <- c(rnorm(1),y[-1]+rnorm(NSTEP-1))
 df <- data.frame(x=x,y=y,z=z)
 var <- VAR(df,type="none")
 gg <- generate(var,n=20) 
-if (write_test_outcomes)  saveRDS(gg,file="/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/gg.rds")
-ggo <- readRDS("/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/gg.rds")
+if (write_test_outcomes)  saveRDS(gg,file=system.file("outcomes/gg.rds",package="RGENERATE"))
+ggo <- readRDS(system.file("outcomes/gg.rds",package="RGENERATE"))
 ##ggo <- data.frame(x=1:10,y=0,z=0)
 ##
 test_that(desc="Testing generate.varest",code=expect_equal(gg,ggo, tolerance = .002, scale = 1))
@@ -33,7 +33,7 @@ cov <- cov(gg)
 set.seed(seed)
 ggg <- generate(FUN=rnorm,n=NSTEP,cov=cov)
 if (write_test_outcomes)  saveRDS(ggg,file="/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/ggg.rds")
-gggo <- readRDS("/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/ggg.rds")
+gggo <- readRDS(system.file("outcomes/ggg.rds",package="RGENERATE")) 
 
 test_that(desc="Testing generate.default",code=expect_equal(ggg,gggo, tolerance = .002, scale = 1))
 
@@ -50,7 +50,7 @@ gpcagg <- generate(gpcavar,n=20,exogen=exogen)
 ####
 
 if (write_test_outcomes)  saveRDS(gpcagg,file="/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/gpcagg.rds")
-gpcaggo <- readRDS("/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/gpcagg.rds")
+gpcaggo <- readRDS(system.file("outcomes/gpcagg.rds",package="RGENERATE")) 
 
 test_that(desc="Testing generate.GPCAvarest2",code=expect_equal(gpcagg,gpcaggo, tolerance = .002, scale = 1))
 
@@ -62,7 +62,7 @@ set.seed(seed)
 mgg <- generate(A,n=100)
 
 if (write_test_outcomes)  saveRDS(mgg,file="/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/mgg.rds")
-mggo <- readRDS("/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/mgg.rds")
+mggo <- readRDS(system.file("outcomes/mgg.rds",package="RGENERATE"))
 
 test_that(desc="Testing generate.matrix",code=expect_equal(mggo,mgg, tolerance = .002, scale = 1))
 
@@ -80,7 +80,7 @@ qqplot(dfobs$y,dffill$y)
 abline(0,1)
 
 if (write_test_outcomes)  saveRDS(dffill,file="/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/dffill.rds")
-dffillo <- readRDS("/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/dffill.rds")
+dffillo <- readRDS(system.file("outcomes/dffill.rds",package="RGENERATE"))
 
 test_that(desc="Testing gap filling with generate.GPCAvarest (2 columns with NAs) ",code=expect_equal(dffillo,dffill, tolerance = .002, scale = 1))
 
@@ -97,7 +97,7 @@ print(mgg_n[1:31,])
 print(mgg_nfill[1:31,])
 
 if (write_test_outcomes)  saveRDS(mgg_nfill,file="/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/mgg_nfill.rds")
-mgg_nfillo <- readRDS("/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/mgg_nfill.rds")
+mgg_nfillo <- readRDS(system.file("outcomes/mgg_nfill.rds",package="RGENERATE"))
 
 test_that(desc="Testing gap filling with generate.matrix (autoregression)",code=expect_equal(mgg_nfillo,mgg_nfill, tolerance = .002, scale = 1))
 
@@ -115,7 +115,7 @@ qqplot(dfobs$y,dffill$y)
 abline(0,1)
 
 if (write_test_outcomes)  saveRDS(dffill2,file="/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/dffill2.rds")
-dffill2o <- readRDS("/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/dffill2.rds")
+dffill2o <- readRDS(system.file("outcomes/dffill2.rds",package="RGENERATE"))
 
 test_that(desc="Testing gap filling with generate.GPCAvarest (1 column  with NAs)",code=expect_equal(dffill2o,dffill2, tolerance = .002, scale = 1))
 
@@ -136,7 +136,7 @@ set.seed(seed)
 gg2 <- generate(covariance,type="covariance",n=ngns)
 
 if (write_test_outcomes)  saveRDS(gg1,file="/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/gg1.rds")
-gg1o <- readRDS("/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/gg1.rds")
+gg1o <- readRDS(system.file("inst/outcomes/gg1.rds",package="RGENERATE"))
 
 test_that(desc="Testing generate.matrix (autoregression) (1)",code=expect_equal(gg1o,gg1, tolerance = .002, scale = 1))
 test_that(desc="Testing generate.matrix (autoregression) (2)",code=expect_equal(gg2,gg1, tolerance = .002, scale = 1))
@@ -175,7 +175,7 @@ ggs_CS3 <- ggs[series=="CS3",]
 cov(ggs_CS3)
 
 if (write_test_outcomes)  saveRDS(ggs,file="/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/ggs.rds")
-ggso <- readRDS("/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/ggs.rds")
+ggso <- readRDS(system.file("outcomes/ggs.rds",package="RGENERATE"))
 
 test_that(desc="Testing generate.list (covariance)",code=expect_equal(ggso,ggs, tolerance = .002, scale = 1))
 
