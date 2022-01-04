@@ -11,7 +11,9 @@ context("Verfiy RGENERATE::generate example output")
 library(RGENERATE)
 
 
-write_test_outcomes=FALSE
+write_test_outcomes=TRUE
+##test_outcomes=!write_test_outcomes
+
 seed = 122
 set.seed(seed)
 NSTEP <- 1000
@@ -21,8 +23,9 @@ z <- c(rnorm(1),y[-1]+rnorm(NSTEP-1))
 df <- data.frame(x=x,y=y,z=z)
 var <- VAR(df,type="none")
 gg <- generate(var,n=20) 
-if (write_test_outcomes)  saveRDS(gg,file=system.file("outcomes/gg.rds",package="RGENERATE"))
-ggo <- readRDS(system.file("outcomes/gg.rds",package="RGENERATE"))
+if (write_test_outcomes)  saveRDS(gg,file="/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/gg.rds")
+ggo <- readRDS(system.file("outcomes/gg.rds",package="RGENERATE")) 
+
 ##ggo <- data.frame(x=1:10,y=0,z=0)
 ##
 test_that(desc="Testing generate.varest",code=expect_equal(gg,ggo, tolerance = .002, scale = 1))
@@ -45,10 +48,12 @@ exogen <- as.data.frame(x+5)
 set.seed(seed)
 gpcavar <- getVARmodel(data=df,suffix=NULL,p=3,n_GPCA_iteration=5,
                        n_GPCA_iteration_residuals=5,exogen=exogen)
-
 gpcagg <- generate(gpcavar,n=20,exogen=exogen) 
 
 ####
+if (write_test_outcomes)  saveRDS(gpcavar,file="/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/gpcavar.rds")
+gpcavaro <- readRDS(system.file("outcomes/gpcavar.rds",package="RGENERATE")) 
+test_that(desc="Testing getVARMODEL output (gpcavar)",code=expect_equal(gpcavar,gpcavaro, tolerance = .002, scale = 1))
 
 if (write_test_outcomes)  saveRDS(gpcagg,file="/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/gpcagg.rds")
 gpcaggo <- readRDS(system.file("outcomes/gpcagg.rds",package="RGENERATE")) 
