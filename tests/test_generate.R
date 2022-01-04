@@ -42,9 +42,10 @@ test_that(desc="Testing generate.default",code=expect_equal(ggg,gggo, tolerance 
 
 library(RMAWGEN)
 exogen <- as.data.frame(x+5)
+set.seed(seed)
 gpcavar <- getVARmodel(data=df,suffix=NULL,p=3,n_GPCA_iteration=5,
                        n_GPCA_iteration_residuals=5,exogen=exogen)
-set.seed(seed)
+
 gpcagg <- generate(gpcavar,n=20,exogen=exogen) 
 
 ####
