@@ -44,10 +44,12 @@ test_that(desc="Testing generate.default",code=expect_equal(ggg,gggo, tolerance 
 ##stop("QUI")
 
 library(RMAWGEN)
+####
 exogen <- as.data.frame(x+5)
 set.seed(seed)
 gpcavar <- getVARmodel(data=df,suffix=NULL,p=3,n_GPCA_iteration=5,
                        n_GPCA_iteration_residuals=5,exogen=exogen)
+gpcavar <- readRDS(system.file("outcomes/gpcavar.rds",package="RGENERATE")) ## gpcavar may differ in different machines! (This must be investigated!)
 gpcagg <- generate(gpcavar,n=20,exogen=exogen) 
 
 ####
