@@ -11,7 +11,7 @@ context("Verfiy RGENERATE::generate example output")
 library(RGENERATE)
 
 
-write_test_outcomes=TRUE
+write_test_outcomes=FALSE
 ##test_outcomes=!write_test_outcomes
 
 seed = 122
