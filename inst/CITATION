@@ -7,7 +7,7 @@ citEntry(entry ="article",
   journal="Italian Journal of Agrometeorology",
   volume="3",
   doi="10.19199/2016.3.2038-5625.031",
-  url="http://www.patroneditore.com/fascicolo_italian_journal_of_agrometeorology-1098.html",
+  url="http://agrometeorologia.it/documenti/Rivista2016_3/tools_for_stochastic_weather_series_generation_in_r_environment.pdf",
   year="2016",
   textVersion = "Cordano E. and Eccel E. (2016), Tools for stochastic weather series generation in R environment,  Italian Journal of Agrometeorology ,doi:10.19199/2016.3.2038-5625.031"
 )
@@ -16,10 +16,10 @@ citEntry(entry ="article",
  citEntry(entry ="manual",
     title = "RGENERATE: Tools To Generate Vector Time Series",
     author = "Emanuele Cordano",
-    year = "2017",
+    year = "2022",
     note = "R package",
     url = "https://CRAN.R-project.org/package=RGENERATE",
-    textVersion="Emanuele Cordano (2017). RGENERATE: Tools To Generate Vector Time Series. R package, https://CRAN.R-project.org/package=RGENERATE"
+    textVersion="Emanuele Cordano (2022). RGENERATE: Tools To Generate Vector Time Series. R package, https://CRAN.R-project.org/package=RGENERATE"
     
   )
 
