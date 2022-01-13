@@ -112,21 +112,21 @@ test_that(desc="Testing gap filling with generate.matrix (autoregression)",code=
 
 
 
-#### Gap filling with GPCAvarest (1 column with NAs)
-dfobs2 <- df
-dfobs2[20:30,2] <- NA
-n <- nrow(df)
-set.seed(seed)
-dffill2 <- generate(gpcavar,n=n,exogen=exogen,gap.filling=dfobs2,names=names(dfobs2)) 
-
-qqplot(dfobs2$y,dffill2$y)
-abline(0,1)
-
-if (write_test_outcomes)  saveRDS(dffill2,file="/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/dffill2.rds")
-dffill2o <- readRDS(system.file("outcomes/dffill2.rds",package="RGENERATE"))
-
-test_that(desc="Testing gap filling with generate.GPCAvarest (1 column  with NAs)",code=expect_equal(dffill2o,dffill2, tolerance = .002, scale = 1))
-
+# #### Gap filling with GPCAvarest (1 column with NAs)
+# dfobs2 <- df
+# dfobs2[20:30,2] <- NA
+# n <- nrow(df)
+# set.seed(seed)
+# dffill2 <- generate(gpcavar,n=n,exogen=exogen,gap.filling=dfobs2,names=names(dfobs2)) 
+# 
+# qqplot(dfobs2$y,dffill2$y)
+# abline(0,1)
+# 
+# if (write_test_outcomes)  saveRDS(dffill2,file="/home/ecor/local/rpackages/rendena100/RGENERATE/inst/outcomes/dffill2.rds")
+# dffill2o <- readRDS(system.file("outcomes/dffill2.rds",package="RGENERATE"))
+# 
+# test_that(desc="Testing gap filling with generate.GPCAvarest (1 column  with NAs)",code=expect_equal(dffill2o,dffill2, tolerance = .002, scale = 1))
+# 
 
 
 
