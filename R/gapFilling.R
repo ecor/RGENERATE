@@ -86,6 +86,11 @@ gapFilling.data.frame <- function (x,objectForGeneration=NULL,max.filling=2,nofi
 	
 	isna <- is.na(x)
 	
+	if (is.null(max.filling)) max.filling <- NA
+	if (is.na(max.filling)) max.filling <- nrow(x)+1
+	if (max.filling==Inf) max.filling <- nrow(x)+1
+	
+	
 	for (c in 1:ncol(x)) { 
 		
 #		
@@ -109,7 +114,14 @@ gapFilling.data.frame <- function (x,objectForGeneration=NULL,max.filling=2,nofi
 
 	out <- generate(x=objectForGeneration,gap.filling=x,n=nrow(x),...)
 	
-	out[out==nofill.code] <- NA 
+	for (c in 1:ncol(x)) { 
+	  out[,c][out[,c]==nofill.code] <- as.numeric(NA)
+	}
+	####
+	
+	names(out) <- names(x) ## EC 20220505
+	####
+	
 	
 	return(out)
 	
