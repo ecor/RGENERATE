@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/22910686.svg)](https://zenodo.org/badge/latestdoi/22910686)
+
 RGENERATE
 =========
 
