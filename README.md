@@ -12,3 +12,7 @@ To install the packege:
 >install_github("RGENERATE",username="ecor")
 
 
+
+# Documentation 
+
+See documentation and details on https://ecor.github.io/RGENERATE/ or https://CRAN.R-project.org/package=RGENERATE (CRAN Version)
