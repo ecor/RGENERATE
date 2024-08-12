@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Rationale
 
-The rationale of this vignette is the presentation of a stochastic generation of daily minimum and maximum temperature in two or more sites makes use of **RMAWGEN** and **RGENERATE** packages. The illustrated procedure refers to *trentino* dataset (**RMAWGEN** package), ad after loading the necessary packages and calling the  *trentino* dataset (**RMAWGEN** package), is organized as follows: 
+The rationale of this vignette is the presentation of a stochastic generation of daily minimum and maximum temperature in two or more sites makes use of **RMAWGEN** (https://ecor.github.io/RMAWGEN/) and **RGENERATE** packages. The illustrated procedure refers to *trentino* dataset (**RMAWGEN** package), ad after loading the necessary packages and calling the  *trentino* dataset (**RMAWGEN** package), is organized as follows: 
 
 - Selection of a generally 30-year long period within the dataset;
 - Preparation of input data for the model setup, e.g. detection of temperature anomalies;

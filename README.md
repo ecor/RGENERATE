@@ -16,3 +16,9 @@ To install the packege:
 # Documentation 
 
 See documentation and details on https://ecor.github.io/RGENERATE/ or https://CRAN.R-project.org/package=RGENERATE (CRAN Version)
+
+# Further Information 
+
+**RMAWGEN** package: https://ecor.github.io/RMAWGEN/
+
+**RGENERATEPREC** package: https://ecor.github.io/RGENERATEPREC/
