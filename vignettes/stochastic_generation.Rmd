@@ -23,11 +23,8 @@ The rationale of this vignette is the presentation of a stochastic generation of
 - Usage of the model to generate a new time series of temperature anomalies. 
 
 This tutorial aims at generating a time series of temperature anomalies stating from a time series of observations. The observations were cleaned from interpolations of the averages of each month of the year representing the actual climate conditions. The generated time series maintains the same statistical properties of the one of the observed anomalies. The anomalies can be added to different scenarios of climate conditions. 
-<!-- This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>. -->
 
-<!-- When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this: -->
-
-## Necessary Package
+## Required Packages
 
 ```{r package,echo=TRUE}
 
@@ -87,9 +84,10 @@ param$data_original
 ```
 
 ## Stochastic Model
+
 ```{r model,echo=TRUE}
 
-exogen <- NULL ## GAUSSIANIZATION!!!
+exogen <- NULL 
 
 
 ###
@@ -100,30 +98,34 @@ model <- getVARmodel(param$data_for_var,suffix=c("_T1","_T2"),sep="",p=p,exogen=
 
 ## Generation of Anomalies
 
+
+
+
 ```{r generation,echo=TRUE}
 
 
 gen1 <- generate(model,n=nrow(param$data_for_var),names=names(param$data_for_var)) 
 
 gen1 <- gen1 %>% normalizeGaussian_severalstations(data=param$data_original,inverse=TRUE,type=3,sample=sample,origin_x=origin_output,origin_data=origin_input)
-##res_multigen <- normalizeGaussian_severalstations(x=res_multigen0,data=original_data,inverse=TRUE,type=type,sample=sample,origin_x=origin_x,origin_data=origin_data,extremes=extremes)
-###
+
+
 ```
+
+
+
+
 
 ## Observed and Generated Anomalies 
 
+
+
+
 ```{r plots,echo=TRUE}
-###
+
 for (i in 1:ncol(gen1)) {
 
   print(ks.test(param$data_original[,i],gen1[,i]))
 }
-##getVARmodel <-
-##  function (data,suffix=c("_Tx","_Tn"),sep="",p=1,type="none",season=NULL,exogen=NULL,lag.max=NULL,ic="AIC",activateVARselect=FALSE,na.rm=TRUE,
-##            n_GPCA_iteration=0,n_GPCA_iteration_residuals=n_GPCA_iteration,extremes=TRUE) { 
-
-#####
-#####
 
 
 
@@ -136,12 +138,3 @@ for (i in 1:ncol(gen1)) {
 
 ```
 
-<!-- ## Including Plots -->
-
-<!-- You can also embed plots, for example: -->
-
-<!-- ```{r pressure, echo=FALSE} -->
-<!-- plot(pressure) -->
-<!-- ``` -->
-
-<!-- Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot. -->

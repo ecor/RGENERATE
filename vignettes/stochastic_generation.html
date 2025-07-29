@@ -12,7 +12,7 @@
 
 <meta name="author" content="Emanuele Cordano" />
 
-<meta name="date" content="2024-08-12" />
+<meta name="date" content="2025-07-28" />
 
 <title>Stochastic Generation of Daily Temperature Anomalies using RGENERATE and RMAWGEN</title>
 
@@ -341,7 +341,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">Stochastic Generation of Daily Temperature
 Anomalies using RGENERATE and RMAWGEN</h1>
 <h4 class="author">Emanuele Cordano</h4>
-<h4 class="date">2024-08-12</h4>
+<h4 class="date">2025-07-28</h4>
 
 
 
@@ -372,12 +372,10 @@ were cleaned from interpolations of the averages of each month of the
 year representing the actual climate conditions. The generated time
 series maintains the same statistical properties of the one of the
 observed anomalies. The anomalies can be added to different scenarios of
-climate conditions.
-<!-- This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>. --></p>
-<!-- When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this: -->
+climate conditions.</p>
 </div>
-<div id="necessary-package" class="section level2">
-<h2>Necessary Package</h2>
+<div id="required-packages" class="section level2">
+<h2>Required Packages</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(RMAWGEN)</span>
@@ -11506,7 +11504,7 @@ TEMPERATURE_MAX and TEMPERATURE_MIN :</p>
 </div>
 <div id="stochastic-model" class="section level2">
 <h2>Stochastic Model</h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>exogen <span class="ot">&lt;-</span> <span class="cn">NULL</span> <span class="do">## GAUSSIANIZATION!!!</span></span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>exogen <span class="ot">&lt;-</span> <span class="cn">NULL</span> </span>
 <span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a></span>
 <span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="do">###</span></span>
@@ -11517,24 +11515,21 @@ TEMPERATURE_MAX and TEMPERATURE_MIN :</p>
 <h2>Generation of Anomalies</h2>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>gen1 <span class="ot">&lt;-</span> <span class="fu">generate</span>(model,<span class="at">n=</span><span class="fu">nrow</span>(param<span class="sc">$</span>data_for_var),<span class="at">names=</span><span class="fu">names</span>(param<span class="sc">$</span>data_for_var)) </span>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>gen1 <span class="ot">&lt;-</span> gen1 <span class="sc">%&gt;%</span> <span class="fu">normalizeGaussian_severalstations</span>(<span class="at">data=</span>param<span class="sc">$</span>data_original,<span class="at">inverse=</span><span class="cn">TRUE</span>,<span class="at">type=</span><span class="dv">3</span>,<span class="at">sample=</span>sample,<span class="at">origin_x=</span>origin_output,<span class="at">origin_data=</span>origin_input)</span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="do">##res_multigen &lt;- normalizeGaussian_severalstations(x=res_multigen0,data=original_data,inverse=TRUE,type=type,sample=sample,origin_x=origin_x,origin_data=origin_data,extremes=extremes)</span></span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="do">###</span></span></code></pre></div>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>gen1 <span class="ot">&lt;-</span> gen1 <span class="sc">%&gt;%</span> <span class="fu">normalizeGaussian_severalstations</span>(<span class="at">data=</span>param<span class="sc">$</span>data_original,<span class="at">inverse=</span><span class="cn">TRUE</span>,<span class="at">type=</span><span class="dv">3</span>,<span class="at">sample=</span>sample,<span class="at">origin_x=</span>origin_output,<span class="at">origin_data=</span>origin_input)</span></code></pre></div>
 </div>
 <div id="observed-and-generated-anomalies" class="section level2">
 <h2>Observed and Generated Anomalies</h2>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="do">###</span></span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(gen1)) {</span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">ks.test</span>(param<span class="sc">$</span>data_original[,i],gen1[,i]))</span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(gen1)) {</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">ks.test</span>(param<span class="sc">$</span>data_original[,i],gen1[,i]))</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## Warning in ks.test.default(param$data_original[, i], gen1[, i]): p-value will
 ## be approximate in the presence of ties</code></pre>
 <pre><code>## 
 ##  Asymptotic two-sample Kolmogorov-Smirnov test
 ## 
 ## data:  param$data_original[, i] and gen1[, i]
-## D = 0.018189, p-value = 0.05971
+## D = 0.019755, p-value = 0.03179
 ## alternative hypothesis: two-sided</code></pre>
 <pre><code>## Warning in ks.test.default(param$data_original[, i], gen1[, i]): p-value will
 ## be approximate in the presence of ties</code></pre>
@@ -11542,7 +11537,7 @@ TEMPERATURE_MAX and TEMPERATURE_MIN :</p>
 ##  Asymptotic two-sample Kolmogorov-Smirnov test
 ## 
 ## data:  param$data_original[, i] and gen1[, i]
-## D = 0.022138, p-value = 0.01102
+## D = 0.025072, p-value = 0.002533
 ## alternative hypothesis: two-sided</code></pre>
 <pre><code>## Warning in ks.test.default(param$data_original[, i], gen1[, i]): p-value will
 ## be approximate in the presence of ties</code></pre>
@@ -11550,7 +11545,7 @@ TEMPERATURE_MAX and TEMPERATURE_MIN :</p>
 ##  Asymptotic two-sample Kolmogorov-Smirnov test
 ## 
 ## data:  param$data_original[, i] and gen1[, i]
-## D = 0.010634, p-value = 0.5859
+## D = 0.017688, p-value = 0.07224
 ## alternative hypothesis: two-sided</code></pre>
 <pre><code>## Warning in ks.test.default(param$data_original[, i], gen1[, i]): p-value will
 ## be approximate in the presence of ties</code></pre>
@@ -11558,20 +11553,8 @@ TEMPERATURE_MAX and TEMPERATURE_MIN :</p>
 ##  Asymptotic two-sample Kolmogorov-Smirnov test
 ## 
 ## data:  param$data_original[, i] and gen1[, i]
-## D = 0.0076133, p-value = 0.9181
+## D = 0.012453, p-value = 0.3829
 ## alternative hypothesis: two-sided</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="do">##getVARmodel &lt;-</span></span>
-<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="do">##  function (data,suffix=c(&quot;_Tx&quot;,&quot;_Tn&quot;),sep=&quot;&quot;,p=1,type=&quot;none&quot;,season=NULL,exogen=NULL,lag.max=NULL,ic=&quot;AIC&quot;,activateVARselect=FALSE,na.rm=TRUE,</span></span>
-<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="do">##            n_GPCA_iteration=0,n_GPCA_iteration_residuals=n_GPCA_iteration,extremes=TRUE) { </span></span>
-<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="do">#####</span></span>
-<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="do">#####</span></span></code></pre></div>
-<!-- ## Including Plots -->
-<!-- You can also embed plots, for example: -->
-<!-- ```{r pressure, echo=FALSE} -->
-<!-- plot(pressure) -->
-<!-- ``` -->
-<!-- Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot. -->
 </div>
 
 

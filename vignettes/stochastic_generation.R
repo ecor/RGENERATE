@@ -49,7 +49,7 @@ param$data_original
 
 ## ----model,echo=TRUE----------------------------------------------------------
 
-exogen <- NULL ## GAUSSIANIZATION!!!
+exogen <- NULL 
 
 
 ###
@@ -63,21 +63,15 @@ model <- getVARmodel(param$data_for_var,suffix=c("_T1","_T2"),sep="",p=p,exogen=
 gen1 <- generate(model,n=nrow(param$data_for_var),names=names(param$data_for_var)) 
 
 gen1 <- gen1 %>% normalizeGaussian_severalstations(data=param$data_original,inverse=TRUE,type=3,sample=sample,origin_x=origin_output,origin_data=origin_input)
-##res_multigen <- normalizeGaussian_severalstations(x=res_multigen0,data=original_data,inverse=TRUE,type=type,sample=sample,origin_x=origin_x,origin_data=origin_data,extremes=extremes)
-###
+
+
 
 ## ----plots,echo=TRUE----------------------------------------------------------
-###
+
 for (i in 1:ncol(gen1)) {
 
   print(ks.test(param$data_original[,i],gen1[,i]))
 }
-##getVARmodel <-
-##  function (data,suffix=c("_Tx","_Tn"),sep="",p=1,type="none",season=NULL,exogen=NULL,lag.max=NULL,ic="AIC",activateVARselect=FALSE,na.rm=TRUE,
-##            n_GPCA_iteration=0,n_GPCA_iteration_residuals=n_GPCA_iteration,extremes=TRUE) { 
-
-#####
-#####
 
 
 

@@ -80,11 +80,11 @@ generate(x = NULL, ...)
 \method{generate}{MonthlyList}(x, origin, n, ...)
 }
 \arguments{
-\item{x}{null object or the model used for random generation , e.g. a VAR model as a \code{\link{varest-class}} or \code{\link{varest2-class}} object. Default is \code{NULL}.}
+\item{x}{null object or the model used for random generation , e.g. a VAR model as a \code{\link[RMAWGEN]{varest-class}} (returned by \code{\link[vars]{VAR}}) or \code{\link[RMAWGEN]{varest2-class}} object. Default is \code{NULL}.}
 
 \item{...}{further arguments for \code{FUN}}
 
-\item{FUN}{random function of the probability distribution used for noise random generation. Default is \code{\link{rnorm}}. See \url{    https://CRAN.R-project.org/view=Distributions}}
+\item{FUN}{random function of the probability distribution used for noise random generation. Default is \code{\link{rnorm}}. See \url{https://CRAN.R-project.org/view=Distributions}}
 
 \item{n}{number of generations requested}
 
@@ -102,17 +102,17 @@ generate(x = NULL, ...)
 
 \item{xprev}{null object or initial condition of the multivariate random process to be generated. Default is \code{NULL}.}
 
-\item{extremes}{see \code{\link{inv_GPCA}}}
+\item{extremes}{see \code{\link[RMAWGEN]{inv_GPCA}}}
 
-\item{type}{character string used in some method implementations. See \code{\link{inv_GPCA}}. In the matrix implementation, default is \code{"autoregression"}, i.e. the matrix is used as a vector auto-regression coefficient, if it is \code{"covariance"} the method genereted a sample with covariance matrix given by \code{x}.}
+\item{type}{character string used in some method implementations. See \code{\link[RMAWGEN]{inv_GPCA}}. In the matrix implementation, default is \code{"autoregression"}, i.e. the matrix is used as a vector auto-regression coefficient, if it is \code{"covariance"} the method genereted a sample with covariance matrix given by \code{x}.}
 
-\item{GPCA.row.gap.filling.option}{logical value. Default is \code{TRUE}. In case of \code{\link{GPCAvarest2-class}} objects, If \code{gap.filling} contains both \code{NA} and finite values in the same row, 
+\item{GPCA.row.gap.filling.option}{logical value. Default is \code{TRUE}. In case of \code{\link[RMAWGEN]{GPCAvarest2-class}} objects, If \code{gap.filling} contains both \code{NA} and finite values in the same row, 
 this row will contains all \code{NA} values after GPCA. In this case all row values are generated through auto-regression. If \code{GPCA.row.gap.filling.option} all insterted non-NA \code{gap.filling} values   are repleced before returning the function value. 
 Otherwise, in the rows with \code{NA}s all values are re-generated. The option \code{TRUE} is not safe in case the gaps are vary long becouse the genereted values is used for subsequent auto-regrossion.}
 
 \item{factor.series}{factor series used by 'factor.series'}
 
-\item{origin}{start date for generation. See \code{\link{adddate}}}
+\item{origin}{start date for generation. See \code{\link[RMAWGEN]{adddate}}}
 }
 \value{
 a matrix or a data frame object
@@ -221,5 +221,5 @@ ggs_CS3 <- ggs[series=="CS3",]
 cov(ggs_CS3)
 }
 \seealso{
-\code{\link{getVARmodel}}
+\code{\link[RMAWGEN]{getVARmodel}}
 }

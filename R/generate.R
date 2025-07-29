@@ -75,8 +75,8 @@ NULL
 #' 
 #' 
 #' 
-#' @param x null object or the model used for random generation , e.g. a VAR model as a \code{\link{varest-class}} or \code{\link{varest2-class}} object. Default is \code{NULL}.
-#' @param FUN random function of the probability distribution used for noise random generation. Default is \code{\link{rnorm}}. See \url{	https://CRAN.R-project.org/view=Distributions} 
+#' @param x null object or the model used for random generation , e.g. a VAR model as a \code{\link[RMAWGEN]{varest-class}} (returned by \code{\link[vars]{VAR}}) or \code{\link[RMAWGEN]{varest2-class}} object. Default is \code{NULL}.
+#' @param FUN random function of the probability distribution used for noise random generation. Default is \code{\link{rnorm}}. See \url{https://CRAN.R-project.org/view=Distributions} 
 #' @param n number of generations requested 
 #' @param names null object or string vectors or names of the variables to be generated simultaneously. Default is \code{NULL}.
 #' @param K number of the variables to be generated simultaneously, i.e. the K parameters of a VAR. It is automatically detected by \code{x}, \code{names} or \code{cov}, if one of these is not \code{NULL}. 
@@ -85,15 +85,15 @@ NULL
 #' @param exogen null object or amatrix or data frame with exogeneous variables (predictors) id requested by \code{x}. Default is \code{NULL}  
 #' @param xprev null object or initial condition of the multivariate random process to be generated. Default is \code{NULL}. 
 #' @param gap.filling data frame with time series with gabs (\code{NA} values) to be filled. Default is \code{NULL} and not considered, otherwise the method returns this data frame with \code{NA}  row replaced with generated (e.g auto-regressed) values. 
-#' @param GPCA.row.gap.filling.option logical value. Default is \code{TRUE}. In case of \code{\link{GPCAvarest2-class}} objects, If \code{gap.filling} contains both \code{NA} and finite values in the same row, 
+#' @param GPCA.row.gap.filling.option logical value. Default is \code{TRUE}. In case of \code{\link[RMAWGEN]{GPCAvarest2-class}} objects, If \code{gap.filling} contains both \code{NA} and finite values in the same row, 
 #' this row will contains all \code{NA} values after GPCA. In this case all row values are generated through auto-regression. If \code{GPCA.row.gap.filling.option} all insterted non-NA \code{gap.filling} values   are repleced before returning the function value. 
 #' Otherwise, in the rows with \code{NA}s all values are re-generated. The option \code{TRUE} is not safe in case the gaps are vary long becouse the genereted values is used for subsequent auto-regrossion.
-#' @param type character string used in some method implementations. See \code{\link{inv_GPCA}}. In the matrix implementation, default is \code{"autoregression"}, i.e. the matrix is used as a vector auto-regression coefficient, if it is \code{"covariance"} the method genereted a sample with covariance matrix given by \code{x}.
+#' @param type character string used in some method implementations. See \code{\link[RMAWGEN]{inv_GPCA}}. In the matrix implementation, default is \code{"autoregression"}, i.e. the matrix is used as a vector auto-regression coefficient, if it is \code{"covariance"} the method genereted a sample with covariance matrix given by \code{x}.
 #' @param ... further arguments for \code{FUN}
 #' 
 #' @return a matrix or a data frame object
 #' 
-#' @seealso \code{\link{getVARmodel}}
+#' @seealso \code{\link[RMAWGEN]{getVARmodel}}
 #' 
 #' @title generate
 #' @name generate
@@ -107,7 +107,7 @@ NULL
 #' @import RMAWGEN 
 #' @importFrom stats coef residuals rnorm
 #' @importFrom magrittr %>% 
-#'  
+#' @importFrom vars VAR
 #' @examples 
 #' 
 #' 
@@ -373,7 +373,7 @@ NULL
 
 #' 
 #' 
-#' @param extremes  see \code{\link{inv_GPCA}}
+#' @param extremes  see \code{\link[RMAWGEN]{inv_GPCA}}
 #' 
 #' @rdname generate
 #' @method generate GPCAvarest2
@@ -588,7 +588,7 @@ generate.list <- function(x,factor.series=names(x),n=NA,...) {
 NULL
 #' 
 #' 
-#' @param  origin start date for generation. See \code{\link{adddate}}
+#' @param  origin start date for generation. See \code{\link[RMAWGEN]{adddate}}
 #' 
 #' 
 #' @rdname generate
